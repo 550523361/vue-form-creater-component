@@ -12,5 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0"
-  }
+  },
+  "repository":"https://github.com/550523361/vue-form-creater-component.git"
 }
