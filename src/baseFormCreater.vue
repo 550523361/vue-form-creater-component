@@ -617,7 +617,7 @@
     ];*/
 
     export default {
-        name: 'list',
+        name: 'form-creater',
         components:{
             'add-input':addInput,
             'choose-btn':chooseBtn ,
