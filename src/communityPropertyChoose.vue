@@ -14,7 +14,6 @@
     <div v-else="readonly.propertyId" style="color: #f00;">请先选择物业</div>
 </template>
 <script>
-    import {mapState} from 'vuex'
     import baseTableConfig from './../tableList/TabListConfig'
     import listTable from './../tableList/listTable'
     import _ from "underscore";

@@ -14,7 +14,6 @@
     </div>
 </template>
 <script>
-    import {mapState} from 'vuex'
     import baseTableConfig from './../tableList/TabListConfig'
     import listTable from './../tableList/listTable'
     import _ from "underscore";
