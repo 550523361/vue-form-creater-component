@@ -1,14 +1,16 @@
 {
   "name": "vue-form-creater-component",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "vue-form-creater-component",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "private": false,
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "vue-form-creater"
+  ],
+  "author": "fengxiankun",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",

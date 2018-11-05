@@ -14,8 +14,8 @@
     </div>
 </template>
 <script>
-    import baseTableConfig from './../tableList/TabListConfig'
-    import listTable from './../tableList/listTable'
+    import baseTableConfig from './tableList/TabListConfig'
+    import listTable from './tableList/listTable'
     import _ from "underscore";
 
     let tableListConfig=JSON.parse(JSON.stringify(baseTableConfig));
