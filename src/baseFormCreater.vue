@@ -1,4 +1,4 @@
-<template :key="formKey">
+<template>
     <div :class="{readonlyContainer:readonly}">
         <div class="searchContainer" >
             <div class="elementsContainer">
@@ -208,7 +208,7 @@
                                     <template  v-if="queryItemInner.type=='select'&&form[queryItem.prop]==queryItemInner.whenSwitchValue"  >
                                             <template v-if="queryItemInner.createFormItem">
                                                 <template v-if="queryItemInner.dataUrl">
-                                                  <el-form-item :label="tempFormItem.label" :prop="'temp_'+queryItemInner.prop+'_'+(tempFormItem.prop||tempFormItem.id)" v-for="tempFormItem in dataQuery.query[queryItemInner.propList]">
+                                                  <el-form-item :label="tempFormItem.label" :prop="'temp_'+queryItemInner.prop+'_'+(tempFormItem.prop||tempFormItem.id)" :key="'temp_'+ItemInnerIndex+'_'+queryItemInner.prop+'_'+(tempFormItem.prop||tempFormItem.id)" v-for="(tempFormItem,ItemInnerIndex) in dataQuery.query[queryItemInner.propList]">
                                                       <el-col :span="8">
                                                           <el-input v-model="form['temp_'+queryItemInner.prop+'_'+(tempFormItem.prop||tempFormItem.id)]" :placeholder="tempFormItem.defaultLabel"></el-input>
                                                       </el-col>
@@ -223,7 +223,7 @@
                                                   <el-form-item :label="queryItemInner.label" :prop="queryItemInner.prop">
                                                     <el-select v-model="form[queryItemInner.prop]" :placeholder="queryItemInner.defaultLabel" @change="changeQueryParam(queryItemInner)">
                                                       <el-option :label="queryItemInner.defaultLabel||'请选择'" :value="queryItemInner.defaultValue||''"></el-option>
-                                                      <el-option  v-for="component in queryItemInner.options" :value="component.value||component.code||component.id" :label="component.label||component.name"></el-option>
+                                                      <el-option  v-for="(component,queryItemInnerIndex) in queryItemInner.options" :value="component.value||component.code||component.id" :key="'_key_'+queryItemInnerIndex+'_'+component.value||component.code||component.id" :label="component.label||component.name"></el-option>
                                                     </el-select>
                                                   </el-form-item>
                                                 </template>
@@ -298,8 +298,8 @@
     import communityPropertyChoose from './communityPropertyChoose'
 
 
-    /*let queryElements=[
-        /!*{
+    let queryElements=[
+        /*{
             type:'radio',
             prop:"state",
             value:"1",
@@ -314,7 +314,7 @@
                     value:'1'
                 },
             ]
-        },*!/
+        },*/
         {
             label:'店铺名称',
             type:'input',
@@ -347,14 +347,14 @@
             prop:'phone'
         },
 
-        /!*{
+        /*{
             type:'input',
             prop:"account",
             value:"1",
             label:'店铺登录账户',
             placeholder:'请输入店铺登录账号',
-        },*!/
-        /!*{
+        },*/
+        /*{
             type:'switchBtn',
             prop:"switchBtn",
             value:"1",
@@ -362,8 +362,8 @@
             validateRules:[
 
             ]
-        },*!/
-        /!*{
+        },*/
+        /*{
             type:'hidden',
             prop:"lunaibaos",
             value:"1",
@@ -452,8 +452,8 @@
    r:"change"
                 }
             ]
-        },*!/
-        /!*{
+        },*/
+        /*{
             label:'商品类型',
             placeholder:'请选择商品类型',
             defaultValue:"",
@@ -532,8 +532,8 @@
                 {label:'服务',value:'2'},
             ],
             prop:'goodsType'
-        },*!/
-        /!*{
+        },*/
+        /*{
             label:'搜索',
             type:'search',
             check: function (form) {
@@ -608,13 +608,13 @@
             label:'搜索',
             type:'button',
             param:true
-        },*!/
-        /!*{
+        },*/
+        /*{
             label:'日期',
             type:'date',
             param:true
-        }*!/
-    ];*/
+        }*/
+    ];
 
     export default {
         name: 'form-creater',
@@ -1005,11 +1005,11 @@
         },
         created() {
             let that=this;
-            let config=this.$attrs.config;
+            let config=this.$attrs.config||{};
 
             that.readonly=config.readonly||false;
 
-            this.queryElements=config.queryElements;
+            this.queryElements=config.queryElements||queryElements;
             this.queryElements.forEach(item=>{
                 //item.readonly=config.readonly||true;
                 if(item.type=='button'||item.type=='search'){
@@ -1044,47 +1044,3 @@
         }
     }
 </script>
-
-<style>
-    #container {
-        height: 300px;
-        width:800px;
-    }
-
-    .queryElement{
-        display: block;
-        width: 100%;
-        border:0px solid #f00;
-    }
-
-    .tableClass{
-        width: 1060px;
-        display: inline-block;
-    }
-    .readonlyContainer input[disabled='disabled'][type='text'] {
-        background-color: #eef1f6!important;
-        border-color: #d1dbe5!important;
-        color: #bbb;
-        cursor: not-allowed;
-        border: 0px solid #f00!important;
-        background: #fff!important;
-    }
-    .tipMessage{
-        display: inline-block;font-size: 12px;padding-left: 15px;color:#50bfff;
-    }
-
-    .composite{
-        display: inline-block;
-        width: 100%;
-    }
-    .composite .el-form-item{
-        position: relative;
-        display: inline-block;
-    }
-    .composite .el-form-item:nth-child(2) .el-form-item__content{
-        margin-left: 0px!important;
-    }
-    .composite .el-input, .composite .el-input__inner{
-        width: auto!important;
-    }
-</style>

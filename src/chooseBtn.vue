@@ -26,9 +26,10 @@
     </div>
 </template>
 <script>
-    import baseTableConfig from './tableList/TabListConfig'
-    import listTable from './tableList/listTable'
     import _ from "underscore";
+    import TableConfig from 'vue-table-creater-component'
+    const backendService=TableConfig.BaseService;
+    const baseTableConfig=TableConfig.TableListConfig;
 
     let tableListConfig=JSON.parse(JSON.stringify(baseTableConfig));
     let baseBtnStyle=tableListConfig.baseBtnStyle;
@@ -39,7 +40,6 @@
     export default {
         name: 'choose-btn',
         components:{
-            'list-table':listTable
         },
         data(){
             return{
