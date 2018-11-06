@@ -15,7 +15,6 @@
 </template>
 <script>
     import TableConfig from 'vue-table-creater-component'
-    const backendService=TableConfig.BaseService;
     const baseTableConfig=TableConfig.TableListConfig;
     import _ from "underscore";
 

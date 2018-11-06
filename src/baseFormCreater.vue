@@ -298,8 +298,8 @@
     import communityPropertyChoose from './communityPropertyChoose'
 
 
-    let queryElements=[
-        /*{
+    /*let queryElements=[
+        /!*{
             type:'radio',
             prop:"state",
             value:"1",
@@ -314,7 +314,7 @@
                     value:'1'
                 },
             ]
-        },*/
+        },*!/
         {
             label:'店铺名称',
             type:'input',
@@ -347,14 +347,14 @@
             prop:'phone'
         },
 
-        /*{
+        /!*{
             type:'input',
             prop:"account",
             value:"1",
             label:'店铺登录账户',
             placeholder:'请输入店铺登录账号',
-        },*/
-        /*{
+        },*!/
+        /!*{
             type:'switchBtn',
             prop:"switchBtn",
             value:"1",
@@ -362,8 +362,8 @@
             validateRules:[
 
             ]
-        },*/
-        /*{
+        },*!/
+        /!*{
             type:'hidden',
             prop:"lunaibaos",
             value:"1",
@@ -452,8 +452,8 @@
    r:"change"
                 }
             ]
-        },*/
-        /*{
+        },*!/
+        /!*{
             label:'商品类型',
             placeholder:'请选择商品类型',
             defaultValue:"",
@@ -532,8 +532,8 @@
                 {label:'服务',value:'2'},
             ],
             prop:'goodsType'
-        },*/
-        /*{
+        },*!/
+        /!*{
             label:'搜索',
             type:'search',
             check: function (form) {
@@ -608,13 +608,14 @@
             label:'搜索',
             type:'button',
             param:true
-        },*/
-        /*{
+        },*!/
+        /!*{
             label:'日期',
             type:'date',
             param:true
-        }*/
-    ];
+        }*!/
+    ];*/
+
 
     export default {
         name: 'form-creater',
@@ -1009,7 +1010,7 @@
 
             that.readonly=config.readonly||false;
 
-            this.queryElements=config.queryElements||queryElements;
+            this.queryElements=config.queryElements||[];
             this.queryElements.forEach(item=>{
                 //item.readonly=config.readonly||true;
                 if(item.type=='button'||item.type=='search'){

@@ -11,6 +11,7 @@ const components=[addInput,FormCreater,ChooseBtn];
 
 const install = function(Vue,options){
     Vue.use(elementUi);
+    Vue.use(TableComponentConfig);
     components.forEach(component=>{
         Vue.component(component.name,component)
     })

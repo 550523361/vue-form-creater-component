@@ -28,7 +28,6 @@
 <script>
     import _ from "underscore";
     import TableConfig from 'vue-table-creater-component'
-    const backendService=TableConfig.BaseService;
     const baseTableConfig=TableConfig.TableListConfig;
 
     let tableListConfig=JSON.parse(JSON.stringify(baseTableConfig));
