@@ -1,6 +1,6 @@
 {
   "name": "vue-form-creater-component",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "vue-form-creater-component",
   "main": "src/index.js",
   "scripts": {

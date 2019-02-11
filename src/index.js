@@ -5,6 +5,7 @@ import TableComponentConfig from 'vue-table-creater-component'
 import FormCreater from "./baseFormCreaterNew"
 import BaseService from "./remoteService/backendService"
 import addInput from "./addInput"
+import validate from "./validate/validate"
 import elementUi from "element-ui"
 
 const TableListConfig=TableComponentConfig.TableListConfig;
