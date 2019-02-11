@@ -1,13 +1,15 @@
 import ChooseBtn from "./chooseBtn"
+import CommunityChoose from "./communityChoose"
+import CommunityPropertyChoose from "./communityPropertyChoose"
 import TableComponentConfig from 'vue-table-creater-component'
-import FormCreater from "./baseFormCreater"
+import FormCreater from "./baseFormCreaterNew"
 import BaseService from "./remoteService/backendService"
 import addInput from "./addInput"
 import elementUi from "element-ui"
 
 const TableListConfig=TableComponentConfig.TableListConfig;
 const TableList=TableComponentConfig.TableList;
-const components=[addInput,FormCreater,ChooseBtn];
+const components=[addInput,FormCreater,ChooseBtn,CommunityChoose,CommunityPropertyChoose];
 
 const install = function(Vue,options){
     Vue.use(elementUi);

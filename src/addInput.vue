@@ -13,8 +13,13 @@
             </el-col>
         </el-form-item>
         <div style="color:#1d90e6;font-size: 12px;line-height: 20px;" v-if="!config.readonly">
-            <div>1. 支持配置多个标签，每个标签填写后按enter完成输入；</div>
-            <div>2. 该标签将用于语音搜索，所以越准确越好，举例：商品‘农夫山泉矿泉水，标签可写为：水、矿泉水、农夫山泉、饮用水、瓶装水</div>
+            <div v-if="!config.html">
+                <div>1. 支持配置多个标签，每个标签填写后按enter完成输入；</div>
+                <div>2. 该标签将用于语音搜索，所以越准确越好，举例：商品‘农夫山泉矿泉水，标签可写为：水、矿泉水、农夫山泉、饮用水、瓶装水</div>
+            </div>
+            <div v-if="config.html" v-html="config.html">
+
+            </div>
         </div>
     </div>
 </template>

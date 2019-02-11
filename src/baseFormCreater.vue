@@ -85,6 +85,14 @@
                             </span> 
                         </el-form-item> 
                     </template>
+                    <span class="form-group form-inline " v-if="queryItem.type=='diyComponent'"  style="margin-top:10px;padding-right: 10px;">
+                        <el-form-item :prop="queryItem.prop" :label="queryItem.label">
+                          <any-component :readData="form" :key="'tempInsertComponentName'+queryItem.prop+'_'" :componentName="queryItem.component.name" :elementInfo="queryItem"></any-component>
+                          <span style="display: none">
+                               <el-input v-model="form[queryItem.prop]" hidden :placeholder="queryItem.placeholder"></el-input>
+                          </span>
+                        </el-form-item>
+                    </span>
                     <template  v-if="queryItem.type=='switchBtn'&&(queryItem.watch&&queryItem.watch.prop?form[queryItem.watch.prop]==queryItem.watch.watchValue:true)"  >
                         <el-form-item :prop="queryItem.prop" :label="queryItem.label">
                           <el-switch :placeholder="queryItem.placeholder" v-model="form[queryItem.prop]"></el-switch>
@@ -271,9 +279,9 @@
                         <el-button @click="cancle">取消</el-button>
                     </el-form-item>
                 </el-form>
-                {{form}}
+                <!--{{form}}
                 <hr>
-                {{rules}}
+                {{rules}}-->
             </div>
             <!--<div class="btnContainer">
                       <span v-for="queryItem in queryButtons">

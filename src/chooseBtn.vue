@@ -1,17 +1,18 @@
 <template>
     <div :style="{
         width:config.width||'800px'
-    }">
+    }" :class="{'tableNoBorder':true}">
+            <el-button type="info" v-if="config.isPop&&!config.readonly"  style="margin-bottom: 20px;" @click="addCommunity">{{config.chooseBtnLabel}}</el-button>
             <div class="chooseResultContainer">
                         <span class="addInputItemGroupContainer" v-for="(group,index) in Object.keys(choosedResultArray)">
-                            {{group=="undefined"?'':group}}
-                            <span class="addInputItemContainer" v-for="(item,index) in choosedResultArray[group]">
-                                <span class="deleteIcon" v-if="!config.readonly" @click="deleteItem(item,index)">×</span>
+                            <span v-if="group!='undefined'" style="font-weight: bold;margin-right: 10px;min-width: 50px;text-align: right;display: inline-block;">{{group=="undefined"?'':group}}</span>
+                            <span class="addInputItemContainer" v-if="item.name"  v-for="(item,index) in choosedResultArray[group]">
+                                <span class="deleteIcon" v-if="!config.readonly&&$attrs.config.simpleDelBtn!=false" @click="deleteItem(item,index)">×</span>
                                     {{item.name}}
                             </span>
                         </span>
             </div>
-            <el-button type="info" v-if="config.isPop" @click="addCommunity">{{config.chooseBtnLabel}}</el-button>
+
             <el-dialog v-if="config.isPop"
                 :title="config.popTitle||''"
                 :visible.sync="confirmRefund"
@@ -26,9 +27,10 @@
     </div>
 </template>
 <script>
+    import {mapState} from 'vuex'
+    import baseTableConfig from './../tableList/TabListConfig'
+    import listTable from './../tableList/listTable'
     import _ from "underscore";
-    import TableConfig from 'vue-table-creater-component'
-    const baseTableConfig=TableConfig.TableListConfig;
 
     let tableListConfig=JSON.parse(JSON.stringify(baseTableConfig));
     let baseBtnStyle=tableListConfig.baseBtnStyle;
@@ -39,6 +41,7 @@
     export default {
         name: 'choose-btn',
         components:{
+            'list-table':listTable
         },
         data(){
             return{
@@ -50,7 +53,7 @@
                 form:{},
                 items:[],
                 readonly:{},
-                tableListConfig:{},
+                tableListConfig:{showHeader:true,stripe:true},
                 queryConfig:{},
                 chooseResult:{},
                 catchListData:{}
@@ -158,12 +161,12 @@
                 if(callback&&typeof callback == "function"){
                     param=callback(param);
                 }
-                param.map(item=>{
+                param.content.map(item=>{
                     item.idCheck=that.chooseResult[item.id]?true:false;
                 })
-                that.catchListData=param;
-                console.log("pagerDataHelper",param)
-                return {content:param};
+                that.catchListData=param.content;
+                //console.log("pagerDataHelper",param)
+                return param;
             },
             uncheckItem(deleteItem){
                 let that=this;
@@ -260,14 +263,14 @@
 
             },
             headerClick(column,eventData,listData){
-                console.log("headerClick***++++++*****",column,eventData,listData);
+                //console.log("headerClick***++++++*****",column,eventData,listData);
                 column.label=column.label=='取消'?'全选':'取消';
                 listData.content&&listData.content.map(item=>item['idCheck']=!item.idCheck);
             },
         },
         computed:{
             choosedResultArray:function(){
-                return _.groupBy(Object.values(this.chooseResult),"provinceName");
+                return _.groupBy(Object.values(this.chooseResult),this.config.groupBy||"provinceName");
             }
         },
         created() {
@@ -292,15 +295,44 @@
                     that.chooseResult[item.id]=item;
                 })
                 if(this.config.dataBus){
-                    console.log("that.chooseResult",that.chooseResult)
+                    console.log("that.chooseResult*******",that.chooseResult)
                     if(typeof this.config.dataBus ==="function"){
-                        this.config.dataBus(this.config,Object.values(that.chooseResult));
+                        that.config.dataBus(that.config,Object.values(that.chooseResult).filter(item=>item!=null).map(item=>{
+                            return item.id;
+                        }));
                     }
                 }
             }
+
+            if(this.$attrs.config.watchFormData){
+                this.$watch("$attrs.config.formData",function (newValue,oldValue) {
+                    let formData=newValue;
+                    that.chooseResult={};
+                    if(formData){
+                        (formData||[]).forEach(item=>{
+                            item.from="db";
+                            that.chooseResult[item.id]=item;
+                        })
+                        if(this.config.dataBus){
+                            console.log("that.chooseResult*******","formData",newValue)
+                            if(typeof this.config.dataBus ==="function"){
+                                that.config.dataBus(that.config,Object.values(that.chooseResult).filter(item=>item!=null).map(item=>{
+                                    return item.id;
+                                }));
+                            }
+                        }
+                        that.chooseResult=JSON.parse(JSON.stringify(that.chooseResult))
+                    }
+                },{
+                    deep:false
+                })
+            }
+
             //tableListConfig.selection=true;
             tableListConfig.headerClick=that.headerClick;
             tableListConfig.url=that.config.tableListConfig.url;
+            tableListConfig.stripe=that.config.tableListConfig.stripe;
+            tableListConfig.showHeader=that.config.tableListConfig.showHeader;
             tableListConfig.colums=that.config.tableListConfig.colums||[];
             this.queryConfig.queryElements=config.tableListConfig.queryElements||[];
             //this.queryConfig.queryElements[5].check=this.check;
@@ -334,9 +366,9 @@
     .addInputItemContainer{
         display: inline-block;
         padding: 5px 10px;
-        border:1px solid #f00;
+        border:1px solid #00c9ff;
         border-radius: 5px;
-        color: #f00;
+        color: #00c9ff;
         line-height: 20px;
         margin-right: 10px;
         margin-bottom: 10px;
@@ -361,6 +393,16 @@
     .addInputItemGroupContainer{
         display: block;
         text-align: left;
+        margin-bottom: 10px;
     }
 
+</style>
+<style>
+
+    .tableNoBorder .el-table::before,.tableNoBorder .el-table::after{
+        height: 0px;
+    }
+    .tableNoBorder .el-table--border td,.tableNoBorder .el-table{
+        border: 0px solid #00a0ef;
+    }
 </style>
