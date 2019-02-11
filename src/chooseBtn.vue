@@ -28,8 +28,8 @@
 </template>
 <script>
     import {mapState} from 'vuex'
-    import baseTableConfig from './../tableList/TabListConfig'
-    import listTable from './../tableList/listTable'
+    import TableConfig from 'vue-table-creater-component'
+    const baseTableConfig=TableConfig.TableListConfig;
     import _ from "underscore";
 
     let tableListConfig=JSON.parse(JSON.stringify(baseTableConfig));
@@ -41,7 +41,6 @@
     export default {
         name: 'choose-btn',
         components:{
-            'list-table':listTable
         },
         data(){
             return{
