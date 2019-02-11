@@ -2,7 +2,7 @@
     <div :class="{readonlyContainer:readonly}">
         <div class="searchContainer" >
             <div class="elementsContainer">
-                <el-form ref="form" :model="form" :rules="rules" label-width="180px">
+                <el-form ref="form" :model="form" :rules="rules" :label-width="$attrs.config.labelWidth||'180px'">
                       <span class="queryElement" :class="{
                               hidden:queryItem.type=='hidden',
                               tabContainer:queryItem.type=='tab',
@@ -760,64 +760,3 @@
         }
     }
 </script>
-
-<style>
-    #container {
-        height: 300px;
-        width:800px;
-    }
-
-    .queryElement{
-        display: block;
-        width: 100%;
-        border:0px solid #f00;
-    }
-
-    .tableClass{
-        width: 1060px;
-        display: inline-block;
-    }
-    .readonlyContainer input[disabled='disabled'][type='text'] {
-        background-color: #eef1f6!important;
-        border-color: #d1dbe5!important;
-        color: #24252f;
-        cursor: not-allowed;
-        border: 0px solid #f00!important;
-        background: #fff!important;
-    }
-    .readonlyContainer .el-form-item__label{
-        font-weight: bold;
-        padding-right: 5px;
-    }
-    .tipMessage{
-        display: inline-block;font-size: 12px;padding-left: 15px;color:#50bfff;
-    }
-
-    .composite{
-        display: inline-block;
-        width: 100%;
-    }
-    .composite .el-form-item{
-        position: relative;
-        display: inline-block;
-    }
-    .composite .el-form-item:nth-child(2) .el-form-item__content{
-        margin-left: 0px!important;
-    }
-    .composite .el-input, .composite .el-input__inner{
-        width: auto!important;
-    }
-
-    .h1Lable .el-form-item__label{
-        font-size: 34px;
-    }
-    .h2Lable .el-form-item__label{
-        font-size: 30px;
-    }
-    .h3Lable .el-form-item__label{
-        font-size: 18px;
-    }
-    .is-disabled .el-icon-caret-top{
-        display: none;
-    }
-</style>
