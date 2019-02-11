@@ -230,11 +230,11 @@
                                 </el-form-item> 
                             </template>
                       </span>
-                        <el-form-item v-if="!$attrs.config.noneSaveBtn">
+                        <template v-if="!$attrs.config.noneSaveBtn">
                             <el-button type="primary" v-if="!readonly" @click="submitForm('form')" :style="$attrs.config.confirmBtnStyle||{width:'220px'}">{{$attrs.config.saveBtnlabel||(form["id"]?"立即更新":'立即创建')}}</el-button>
                             <!--<el-button @click="resetForm('form')">重置</el-button>-->
                             <el-button @click="cancle" :style="$attrs.config.cancleBtnStyle||{width:'220px'}">取消</el-button>
-                        </el-form-item>
+                        </template>
                 </el-form>
                 <!--{{form}}
                 <hr>
