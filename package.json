@@ -1,6 +1,6 @@
 {
   "name": "vue-form-creater-component",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "description": "vue-form-creater-component",
   "main": "src/index.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "element-ui": "^1.4.13",
     "underscore": "^1.9.1",
     "vue": "^2.5.17",
-    "vue-table-creater-component": "^1.0.18"
+    "vue-table-creater-component": "^1.0.20"
   },
   "repository": "https://github.com/550523361/vue-form-creater-component.git"
 }
