@@ -10,7 +10,7 @@ import elementUi from "element-ui"
 
 const TableListConfig=TableComponentConfig.TableListConfig;
 const TableList=TableComponentConfig.TableList;
-const components=[addInput,FormCreater,ChooseBtn,CommunityChoose,CommunityPropertyChoose,validate];
+const components=[addInput,FormCreater,ChooseBtn,CommunityChoose,CommunityPropertyChoose];
 
 const install = function(Vue,options){
     Vue.use(elementUi);
@@ -20,6 +20,6 @@ const install = function(Vue,options){
     })
 }
 
-let exports={ChooseBtn,TableList,TableListConfig,BaseService,addInput,install,FormCreater};
+let exports={ChooseBtn,TableList,TableListConfig,BaseService,addInput,install,FormCreater,validate};
 
 export default exports;

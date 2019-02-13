@@ -47,7 +47,10 @@
                                           class="upload-demo"
                                           name="file"
                                           :show-file-list="false"
-                                          action="/api-backend/fileUpload.json"
+                                          :data="form"
+                                          :ref="'import_'+queryItem.prop"
+                                          :auto-upload="queryItem.autoUpload||true"
+                                          :action="queryItem.url"
                                           :on-change="function(param){
                                             return onchangeUpload(param,queryItem)
                                           }"
@@ -265,7 +268,7 @@
     import orderUploadImages from './addImages'
 
     export default {
-        name: 'base-from-creater-new',
+        name: 'base-form-creater-new',
         components:{
             'add-input':addInput,
             'choose-btn':chooseBtn ,
