@@ -19,7 +19,7 @@
         <el-dialog v-if="config.isPop"
                    :title="config.popTitle||''"
                    :visible.sync="confirmRefund"
-                   width="30%"
+                   :width="config.width||'40%'"
                    :before-close="handleClose">
             <list-table v-if="!config.readonly && showSearch" :config="{tableListConfig,queryConfig,clickHandler,form:'propertyMerchant'}" :readData="readonly" ref="tableList">
                 <div class="chooseResultContainer" slot="beforeTable" v-if="config.popChooseViewHandler">
