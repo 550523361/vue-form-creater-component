@@ -17,7 +17,10 @@
                             }).filter(item=>item==true).length==0:true)"  >
                                 <el-form-item :label="queryItem.label" :prop="queryItem.prop">
                                   <el-col :span="queryItem.span||8">
-                                    <el-input :type="queryItem.inputType||''" :rows="queryItem.rows||1" v-model="form[queryItem.prop]" :disabled="queryItem.readonly||readonly" :placeholder="queryItem.placeholder"></el-input>
+                                    <template v-if="queryItem.preText">{{queryItem.preText}}</template>
+                                    <el-input :type="queryItem.inputType||''" :style="queryItem.style||{}" :rows="queryItem.rows||1" v-model="form[queryItem.prop]" :disabled="queryItem.readonly||readonly" :placeholder="queryItem.placeholder">
+                                    </el-input>
+                                    <template v-if="queryItem.subText"><span v-html="queryItem.subText"></span></template>
                                     <div style="color: #f00;font-size: 12px;line-height: 20px;">
                                         {{queryItem.tip}}
                                     </div>
@@ -223,11 +226,15 @@
                                 <el-form-item :prop="queryItem.prop" :label="queryItem.label"> 
                                     <el-date-picker
                                             v-model="form[queryItem.prop]"
-                                            type="datetimerange"
+                                            :type="queryItem.dateType||'datetimerange'"
+                                            :disabled="queryItem.readonly||readonly"
                                             :picker-options="queryItem.options"
                                             :range-separator="queryItem.centerLabel||'至'"
                                             :placeholder="queryItem.placeholder||'请选择时间范围'"
-                                            format="yyyy-MM-dd hh:mm:ss"
+                                            :format="queryItem.format||'yyyy-MM-dd hh:mm:ss'"
+                                            @change="data=>{
+                                                form[queryItem.prop]=data.split((queryItem.centerLabel||'至'));
+                                            }"
                                             align="right">
                                     </el-date-picker>
                                 </el-form-item> 

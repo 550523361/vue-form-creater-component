@@ -2,8 +2,8 @@
     <div :style="{
         width:config.width||'800px'
     }" :class="{'tableNoBorder':true}">
-            <el-button type="info" v-if="config.isPop&&!config.readonly"  style="margin-bottom: 20px;" @click="addCommunity">{{config.chooseBtnLabel}}</el-button>
-            <div class="chooseResultContainer">
+        <el-button type="info" v-if="config.isPop&&!config.readonly"  style="margin-bottom: 20px;" @click="addCommunity">{{config.chooseBtnLabel}}</el-button>
+        <div class="chooseResultContainer" v-if="!config.chooseResultViewHandler">
                         <span class="addInputItemGroupContainer" v-for="(group,index) in Object.keys(choosedResultArray)">
                             <span v-if="group!='undefined'" style="font-weight: bold;margin-right: 10px;min-width: 50px;text-align: right;display: inline-block;">{{group=="undefined"?'':group}}</span>
                             <span class="addInputItemContainer" v-if="item.name"  v-for="(item,index) in choosedResultArray[group]">
@@ -11,18 +11,37 @@
                                     {{item.name}}
                             </span>
                         </span>
-            </div>
+        </div>
+        <div class="chooseResultContainer" v-if="config.chooseResultViewHandler">
+            <div v-html="config.chooseResultViewHandler(choosedResultArray,config.readonly)"></div>
+        </div>
 
-            <el-dialog v-if="config.isPop"
-                :title="config.popTitle||''"
-                :visible.sync="confirmRefund"
-                width="30%"
-                :before-close="handleClose">
-                <list-table v-if="!config.readonly && showSearch" :config="{tableListConfig,queryConfig,clickHandler,form:'propertyMerchant'}" :readData="readonly" ref="tableList"></list-table>
-            </el-dialog>
-            <div v-else="config.isPop">
-                <list-table v-if="!config.readonly && showSearch" :config="{tableListConfig,queryConfig,clickHandler,form:'propertyMerchant'}" :readData="readonly" ref="tableList"></list-table>
-            </div>
+        <el-dialog v-if="config.isPop"
+                   :title="config.popTitle||''"
+                   :visible.sync="confirmRefund"
+                   width="30%"
+                   :before-close="handleClose">
+            <list-table v-if="!config.readonly && showSearch" :config="{tableListConfig,queryConfig,clickHandler,form:'propertyMerchant'}" :readData="readonly" ref="tableList">
+                <div class="chooseResultContainer" slot="beforeTable" v-if="config.popChooseViewHandler">
+                    <div v-html="config.popChooseViewHandler(choosedResultArray)"></div>
+                </div>
+                <div slot="afterTable">
+                    <div style="text-align: center;">
+                        <el-button @click="handleClose">保存</el-button>
+                    </div>
+
+                </div>
+            </list-table>
+        </el-dialog>
+        <div v-else="config.isPop">
+            <list-table v-if="!config.readonly && showSearch" :config="{tableListConfig,queryConfig,clickHandler,form:'propertyMerchant'}" :readData="readonly" ref="tableList">
+                <div class="chooseResultContainer" slot="beforeTable" v-if="config.popChooseViewHandler">
+                    <div v-html="config.popChooseViewHandler(choosedResultArray)"></div>
+                </div>
+                <div slot="afterTable">
+                </div>
+            </list-table>
+        </div>
 
     </div>
 </template>
